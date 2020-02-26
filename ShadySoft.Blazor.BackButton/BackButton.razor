@@ -1,0 +1,19 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime jsRuntime;
+
+<button @onclick="ButtonClicked" @attributes="AdditionalAttributes">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+    private void ButtonClicked()
+    {
+        jsRuntime.InvokeAsync<bool>("shadySoftBackButton.goBack");
+    }
+}
